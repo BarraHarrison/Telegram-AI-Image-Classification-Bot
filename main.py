@@ -18,3 +18,12 @@ def help(update, context):
     /train - trains the neural network
 
     """)
+
+def train(update, context):
+    pass
+
+def handle_message(update, context):
+    pass
+
+def handle_photo(update, context):
+    pass
