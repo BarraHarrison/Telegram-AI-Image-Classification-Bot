@@ -53,7 +53,9 @@ def handle_photo(update, context):
     f = BytesIO(file.download_as_bytearray())
     file_bytes = np.asarray(bytearray(f.read()), dtype=np.uint8)
     img  = cv2.imdecode(file_bytes, cv2.IMREAD_COLOR)
+    img = cv2.cvtColor(img, cv2.COLOR_RGB2BGR)
     
+
 
 
 updater = Updater(TOKEN, use_context=True)
