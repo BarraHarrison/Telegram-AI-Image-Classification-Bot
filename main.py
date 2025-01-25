@@ -40,6 +40,7 @@ def help(update, context):
 def train(update, context):
     update.message.reply_text("Model is being trained...")
     model.compile(optimizer="adam", loss="sparse_categorical_crossentropy", metrics=["accuracy"])
+    model.fit(x_train, y_train, epochs=10, validation_data=[x_test, y_test])
     
 
 def handle_message(update, context):
