@@ -41,6 +41,8 @@ def train(update, context):
     update.message.reply_text("Model is being trained...")
     model.compile(optimizer="adam", loss="sparse_categorical_crossentropy", metrics=["accuracy"])
     model.fit(x_train, y_train, epochs=10, validation_data=[x_test, y_test])
+    model.save("cifar_classifier.model")
+    update.message.reply_text("Done! You can now send a photo if you wish.")
     
 
 def handle_message(update, context):
