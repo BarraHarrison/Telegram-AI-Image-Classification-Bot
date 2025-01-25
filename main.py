@@ -14,7 +14,10 @@ with open("token.txt", "r") as f:
 (x_train, y_train), (x_test, y_test) = tf.keras.datasets.cifar10.load_data()
 x_train, x_test = x_train / 255, x_test / 255
 
-class_names = ["Plane", "Car", "Bird", "Cat"]
+class_names = ["Plane", "Car", "Bird", "Cat", "Deer", "Dog", "Frog", "Horse", "Ship", "Truck"]
+
+model = tf.keras.models.Sequential()
+model.add(tf.keras.layers.Conv2D(32, (3,3), activation="relu", input_shape=(32, 32, 3)))
 
 
 def start(update, context):
