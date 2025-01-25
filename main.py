@@ -35,3 +35,7 @@ dp.add_handler(CommandHandler("start",  start))
 dp.add_handler(CommandHandler("help",  help))
 dp.add_handler(CommandHandler("train",  train))
 dp.add_handler(MessageHandler(Filters.text, handle_message))
+dp.add_handler(MessageHandler(Filters.photo, handle_photo))
+
+updater.start_polling()
+updater.idle()
