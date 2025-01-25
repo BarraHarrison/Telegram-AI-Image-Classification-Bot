@@ -8,6 +8,15 @@ import tensorflow as tf
 with open("token.txt", "r") as f:
     TOKEN = f.read()
 
+
+# Convolutional Neural Network
+# Loading the training and testing data
+(x_train, y_train), (x_test, y_test) = tf.keras.datasets.cifar10.load_data()
+x_train, x_test = x_train / 255, x_test / 255
+
+class_names = ["Plane", "Car", "Bird", "Cat"]
+
+
 def start(update, context):
     update.message.reply_text("Welcome to the Telegram Bot!")
 
