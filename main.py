@@ -49,7 +49,12 @@ def handle_message(update, context):
     update.message.reply_text("Please train the model and send a picture.")
 
 def handle_photo(update, context):
-    pass
+    file = context.bot.get_file(update.message.photo[-1].file_id)
+    f = BytesIO(file.download_as_bytearray())
+    file_bytes = np.asarray(bytearray(f.read()), dtype=np.uint8)
+    img  = cv2.imdecode(file_bytes, cv2.IMREAD_COLOR)
+    
+
 
 updater = Updater(TOKEN, use_context=True)
 dp = updater.dispatcher
