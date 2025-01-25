@@ -38,7 +38,9 @@ def help(update, context):
     """)
 
 def train(update, context):
-    pass
+    update.message.reply_text("Model is being trained...")
+    model.compile(optimizer="adam", loss="sparse_categorical_crossentropy", metrics=["accuracy"])
+    
 
 def handle_message(update, context):
     update.message.reply_text("Please train the model and send a picture.")
