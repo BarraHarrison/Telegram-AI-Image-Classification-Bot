@@ -44,7 +44,7 @@ def train(update, context):
     def train_model():
         model.compile(optimizer="adam", loss="sparse_categorical_crossentropy", metrics=["accuracy"])
         model.fit(x_train, y_train, epochs=10, validation_data=[x_test, y_test])
-        model.save("cifar_classifier.model")
+        model.save("cifar_classifier.keras")
         update.message.reply_text("Done! You can now send a photo if you wish.")
 
     threading.Thread(target=train_model).start()
