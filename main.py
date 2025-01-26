@@ -38,7 +38,7 @@ def help(update, context):
 
     """)
 
-def train(update, context):
+async def train(update, context):
     update.message.reply_text("Model is being trained...")
 
     def train_model():
