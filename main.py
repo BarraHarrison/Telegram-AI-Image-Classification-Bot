@@ -27,11 +27,11 @@ model.add(tf.keras.layers.Dense(64, activation="relu"))
 model.add(tf.keras.layers.Dense(10, activation="softmax"))
 
 
-def start(update, context):
-    update.message.reply_text("Welcome to the Telegram Bot!")
+async def start(update, context):
+    await update.message.reply_text("Welcome to the Telegram Bot!")
 
-def help(update, context):
-    update.message.reply_text("""
+async def help(update, context):
+    await update.message.reply_text("""
     /start - Starts the conversation
     /help - Shows this message
     /train - trains the neural network
@@ -39,7 +39,7 @@ def help(update, context):
     """)
 
 async def train(update, context):
-    update.message.reply_text("Model is being trained...")
+    await update.message.reply_text("Model is being trained...")
 
     def train_model():
         try:
@@ -52,10 +52,10 @@ async def train(update, context):
     threading.Thread(target=train_model).start()
     
 
-def handle_message(update, context):
-    update.message.reply_text("Please train the model and send a picture.")
+async def handle_message(update, context):
+    await update.message.reply_text("Please train the model and send a picture.")
 
-def handle_photo(update, context):
+async def handle_photo(update, context):
     try:
         file = context.bot.get_file(update.message.photo[-1].file_id)
         file_bytes = np.frombuffer(file.download_as_bytearray(), dtype=np.uint8)
@@ -65,9 +65,9 @@ def handle_photo(update, context):
         img = cv2.resize(img, (32, 32), interpolation=cv2.INTER_AREA)
 
         prediction = model.predict(np.array([img / 255]))
-        update.message.reply_text(f"In this image I see a {class_names[np.argmax(prediction)]}")
+        await update.message.reply_text(f"In this image I see a {class_names[np.argmax(prediction)]}")
     except Exception as e:
-        update.message.reply_text(f"Error processing this image: {e}")
+        await update.message.reply_text(f"Error processing this image: {e}")
 
 
 
