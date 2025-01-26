@@ -54,16 +54,18 @@ def handle_message(update, context):
     update.message.reply_text("Please train the model and send a picture.")
 
 def handle_photo(update, context):
-    file = context.bot.get_file(update.message.photo[-1].file_id)
-    f = BytesIO(file.download_as_bytearray())
-    file_bytes = np.frombuffer(file.download_as_bytearray(), dtype=np.uint8)
+    try:
+        file = context.bot.get_file(update.message.photo[-1].file_id)
+        file_bytes = np.frombuffer(file.download_as_bytearray(), dtype=np.uint8)
 
-    img  = cv2.imdecode(file_bytes, cv2.IMREAD_COLOR)
-    img = cv2.cvtColor(img, cv2.COLOR_RGB2BGR)
-    img = cv2.resize(img, (32, 32), interpolation=cv2.INTER_AREA)
+        img  = cv2.imdecode(file_bytes, cv2.IMREAD_COLOR)
+        img = cv2.cvtColor(img, cv2.COLOR_RGB2BGR)
+        img = cv2.resize(img, (32, 32), interpolation=cv2.INTER_AREA)
 
-    prediction = model.predict(np.array([img / 255]))
-    update.message.reply_text(f"In this image I see a {class_names[np.argmax(prediction)]}")
+        prediction = model.predict(np.array([img / 255]))
+        update.message.reply_text(f"In this image I see a {class_names[np.argmax(prediction)]}")
+    except Exception as e:
+        update.message.reply_text(f"Error processing this image: {e}")
 
 
 
