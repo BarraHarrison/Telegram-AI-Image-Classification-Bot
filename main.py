@@ -5,6 +5,9 @@ import cv2
 import numpy as np 
 import tensorflow as tf 
 import threading
+import logging
+
+logging.basicConfig(level=logging.INFO)
 
 with open("token.txt", "r") as f:
     TOKEN = f.read()
