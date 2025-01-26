@@ -51,7 +51,7 @@ def handle_message(update, context):
 def handle_photo(update, context):
     file = context.bot.get_file(update.message.photo[-1].file_id)
     f = BytesIO(file.download_as_bytearray())
-    file_bytes = np.asarray(bytearray(f.read()), dtype=np.uint8)
+    file_bytes = np.frombuffer(file.download_as_bytearray(), dtype=np.uint8)
 
     img  = cv2.imdecode(file_bytes, cv2.IMREAD_COLOR)
     img = cv2.cvtColor(img, cv2.COLOR_RGB2BGR)
