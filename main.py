@@ -58,7 +58,7 @@ def handle_photo(update, context):
     img = cv2.resize(img, (32, 32), interpolation=cv2.INTER_AREA)
 
     prediction = model.predict(np.array([img / 255]))
-    update.reply_text(f"In this image I see a {class_names[np.argmax(prediction)]}")
+    update.message.reply_text(f"In this image I see a {class_names[np.argmax(prediction)]}")
 
 
 
