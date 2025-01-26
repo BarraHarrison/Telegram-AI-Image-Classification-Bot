@@ -12,7 +12,7 @@ with open("token.txt", "r") as f:
 # Convolutional Neural Network
 # Loading the training and testing data
 (x_train, y_train), (x_test, y_test) = tf.keras.datasets.cifar10.load_data()
-x_train, x_test = x_train / 255, x_test / 255
+x_train, x_test = x_train.astype("float32") / 255.0, x_test.astype("float32") / 255.0
 
 class_names = ["Plane", "Car", "Bird", "Cat", "Deer", "Dog", "Frog", "Horse", "Ship", "Truck"]
 
