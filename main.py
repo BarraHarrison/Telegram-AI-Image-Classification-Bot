@@ -1,5 +1,5 @@
 # Telegram AI Bot using Python and Tensorflow
-from telegram.ext import *
+from telegram.ext import Application, CommandHandler, MessageHandler, filters
 from io import BytesIO
 import cv2
 import numpy as np 
@@ -68,14 +68,12 @@ def handle_photo(update, context):
 
 
 
-updater = Updater(TOKEN, use_context=True)
-dp = updater.dispatcher
+app = Application.builder().token(TOKEN).build()
 
-dp.add_handler(CommandHandler("start",  start))
-dp.add_handler(CommandHandler("help",  help))
-dp.add_handler(CommandHandler("train",  train))
-dp.add_handler(MessageHandler(Filters.text, handle_message))
-dp.add_handler(MessageHandler(Filters.photo, handle_photo))
+app.add_handler(CommandHandler("start",  start))
+app.add_handler(CommandHandler("help",  help))
+app.add_handler(CommandHandler("train",  train))
+app.add_handler(MessageHandler(filters.TEXT, handle_message))
+app.add_handler(MessageHandler(filters.PHOTO, handle_photo))
 
-updater.start_polling()
-updater.idle()
+app.run_polling()
