@@ -60,15 +60,17 @@ async def handle_message(update, context):
 
 async def handle_photo(update, context):
     try:
-        file = context.bot.get_file(update.message.photo[-1].file_id)
-        file_bytes = np.frombuffer(file.download_as_bytearray(), dtype=np.uint8)
+        file = await context.bot.get_file(update.message.photo[-1].file_id)
+        file_bytes = await file.download_as_bytearray()
+        file_bytes = np.frombuffer(file_bytes, dtype=np.uint8)
 
         img  = cv2.imdecode(file_bytes, cv2.IMREAD_COLOR)
         img = cv2.cvtColor(img, cv2.COLOR_RGB2BGR)
         img = cv2.resize(img, (32, 32), interpolation=cv2.INTER_AREA)
 
-        prediction = model.predict(np.array([img / 255]))
-        await update.message.reply_text(f"In this image I see a {class_names[np.argmax(prediction)]}")
+        prediction = model.predict(np.array([img / 255.0]))
+        predicted_class = class_names[np.argmax(prediction)]
+        await update.message.reply_text(f"In this image I see a {predicted_class}")
     except Exception as e:
         await update.message.reply_text(f"Error processing this image: {e}")
 
