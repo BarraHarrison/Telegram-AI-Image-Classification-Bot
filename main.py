@@ -35,9 +35,10 @@ async def start(update, context):
 
 async def help(update, context):
     await update.message.reply_text("""
-    /start - Starts the conversation
+    /start - Starts the conversation with the Telegram Bot
     /help - Shows this message
     /train - trains the neural network
+    /stop - Stops the conversation with the Telegram Bot
 
     """)
 
