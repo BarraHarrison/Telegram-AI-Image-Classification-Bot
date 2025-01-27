@@ -41,6 +41,11 @@ async def help(update, context):
 
     """)
 
+async def stop(update, context):
+    await update.message.reply_text("Stopping the bot. Goodbye and have a nice day!")
+    await context.application.stop()
+
+
 async def train(update, context):
     await update.message.reply_text("Model is being trained...")
 
@@ -82,6 +87,7 @@ app = Application.builder().token(TOKEN).build()
 app.add_handler(CommandHandler("start",  start))
 app.add_handler(CommandHandler("help",  help))
 app.add_handler(CommandHandler("train",  train))
+app.add_handler(CommandHandler("stop", stop))
 app.add_handler(MessageHandler(filters.TEXT, handle_message))
 app.add_handler(MessageHandler(filters.PHOTO, handle_photo))
 
